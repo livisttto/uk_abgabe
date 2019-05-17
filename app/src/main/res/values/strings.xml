@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">MovieLion</string>
+    <string name="offline_app_name">MovieLion</string>
+
+    <string name="tab_text_1">Search</string>
+    <string name="tab_text_2">Popular</string>
+    <string name="tab_text_3">Top Rated</string>
+    <string name="tab_text_4">upcoming</string>
+    <string name="tab_text_5">Favorites</string>
+
+    <!--TMDB API URL-->
+    <string name="api_url">https://api.themoviedb.org/3</string>
+    <!--TMDB API Key-->
+    <string name="api_key">4e1597118e7d25bf7cefc1d1565cf71a</string>
+
+    <string name="tab_url_1">/movie/popular</string>
+    <string name="tab_url_2">/movie/popular</string>
+    <string name="tab_url_3">/movie/top_rated</string>
+    <string name="tab_url_4">/movie/upcoming</string>
+    <string name="tab_url_5">/movie/popular</string>
+
+    <string name="details_url">/movie/</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>
