@@ -20,16 +20,15 @@ import ch.ny.livios.movielion.ui.main.SectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
     private static final int[] TAB_URLS = new int[]{R.string.tab_url_1, R.string.tab_url_2, R.string.tab_url_3, R.string.tab_url_4};
-    public static boolean internet = false;
+    private static boolean internet = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            internet = true;
 
+        ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork != null) {
             Resources res = this.getResources();
             List<List<Movie>> movieListsList = new ArrayList<List<Movie>>() {
             };
@@ -47,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
             TabLayout tabs = findViewById(R.id.tabs);
             tabs.setupWithViewPager(viewPager);
         } else {
-            internet = false;
             setContentView(R.layout.activity_main_offline);
             MovieListFragment.newInstance(1);
         }

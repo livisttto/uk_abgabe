@@ -12,6 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import java.util.Objects;
+
 import ch.ny.livios.movielion.MovieDetailsActivity;
 import ch.ny.livios.movielion.MovieLists;
 import ch.ny.livios.movielion.R;
@@ -54,15 +56,15 @@ public class SearchFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), MovieDetailsActivity.class);
                 //Pass the data
-                intent.putExtra("ID", MovieLists.getCurrent(getArguments().getInt(ARG_SECTION_NUMBER)).get(position).getId());
+                intent.putExtra("ID", Objects.requireNonNull(MovieLists.getCurrent(Objects.requireNonNull(getArguments()).getInt(ARG_SECTION_NUMBER))).get(position).getId());
                 startActivity(intent);
             }
         });
         return root;
     }
 
-    public void callSearch(String query) {
+    private void callSearch(String query) {
         MovieLists.setSearch(TMDB.getSearch(query, 20));
-        listView.setAdapter(new MovieAdapter(this.getContext(), MovieLists.getCurrent(getArguments().getInt(ARG_SECTION_NUMBER))));
+        listView.setAdapter(new MovieAdapter(this.getContext(), MovieLists.getCurrent(Objects.requireNonNull(getArguments()).getInt(ARG_SECTION_NUMBER))));
     }
 }

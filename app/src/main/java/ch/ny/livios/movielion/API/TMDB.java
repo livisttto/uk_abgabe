@@ -12,11 +12,12 @@ import okhttp3.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TMDB {
-    public static JSONObject jsonobj;
+    private static JSONObject jsonobj;
 
-    public static JSONObject getGSONObject(String url) {
+    private static JSONObject getGSONObject(String url) {
         jsonobj = null;
         OkHttpClient client = new OkHttpClient();
 
@@ -29,13 +30,12 @@ public class TMDB {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                String mMessage = e.getMessage().toString();
-                Log.e("failure Response", mMessage);
+                Log.e("failure Response", e.getMessage());
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String jsonString = response.body().string();
+                String jsonString = Objects.requireNonNull(response.body()).string();
                 try {
                     jsonobj = new JSONObject(jsonString);
                 } catch (JSONException e) {

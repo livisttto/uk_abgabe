@@ -1,17 +1,17 @@
 package ch.ny.livios.movielion.ui.main;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import java.util.Objects;
 
 import ch.ny.livios.movielion.MovieDetailsActivity;
 import ch.ny.livios.movielion.MovieLists;
@@ -34,12 +34,12 @@ public class MovieListFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.movie_list_fragment, container, false);
         ListView listView = root.findViewById(R.id.listview_main_movieList);
-        listView.setAdapter(new MovieAdapter(this.getContext(), MovieLists.getCurrent(getArguments().getInt(ARG_SECTION_NUMBER))));
+        listView.setAdapter(new MovieAdapter(this.getContext(), MovieLists.getCurrent(Objects.requireNonNull(getArguments()).getInt(ARG_SECTION_NUMBER))));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), MovieDetailsActivity.class);
-                intent.putExtra("ID", MovieLists.getCurrent(getArguments().getInt(ARG_SECTION_NUMBER)).get(position).getId());
+                intent.putExtra("ID", Objects.requireNonNull(MovieLists.getCurrent(Objects.requireNonNull(getArguments()).getInt(ARG_SECTION_NUMBER))).get(position).getId());
                 startActivity(intent);
                 try {
                     Thread.sleep(1000);
