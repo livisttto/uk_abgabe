@@ -12,13 +12,14 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Objects;
 
 import ch.ny.livios.movielion.model.Movie;
 import ch.ny.livios.movielion.R;
 
-public class MovieAdapter extends ArrayAdapter<Movie> {
+class MovieAdapter extends ArrayAdapter<Movie> {
 
-    private LayoutInflater mLayoutInflater;
+    private final LayoutInflater mLayoutInflater;
 
     public MovieAdapter(Context context, List<Movie> items) {
         super(context, R.layout.movie_item);
@@ -40,18 +41,18 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        Picasso.get().load("https://image.tmdb.org/t/p/w500" + getItem(position).getPicturePath()).placeholder(R.drawable.loading).error(R.drawable.no_image).into(viewHolder.posterImageView);
+        Picasso.get().load("https://image.tmdb.org/t/p/w500" + Objects.requireNonNull(getItem(position)).getPicturePath()).placeholder(R.drawable.loading).error(R.drawable.no_image).into(viewHolder.posterImageView);
 
-        String title = getItem(position).getTitle();
+        String title = Objects.requireNonNull(getItem(position)).getTitle();
         viewHolder.titleTextView.setText(title);
 
-        String description = getItem(position).getDescription();
+        String description = Objects.requireNonNull(getItem(position)).getDescription();
         viewHolder.descriptionTextView.setText(description);
 
         return convertView;
     }
 
-    public static class ViewHolder {
+    static class ViewHolder {
         ImageView posterImageView;
         TextView titleTextView;
         TextView descriptionTextView;

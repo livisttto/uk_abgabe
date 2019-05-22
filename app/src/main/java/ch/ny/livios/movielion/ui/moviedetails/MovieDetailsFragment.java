@@ -1,18 +1,14 @@
 package ch.ny.livios.movielion.ui.moviedetails;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.squareup.picasso.Picasso;
 
@@ -22,7 +18,6 @@ import java.util.Locale;
 
 import ch.ny.livios.movielion.MovieDetailsActivity;
 import ch.ny.livios.movielion.R;
-import ch.ny.livios.movielion.model.MovieDetails;
 
 public class MovieDetailsFragment extends Fragment {
 
@@ -62,39 +57,39 @@ public class MovieDetailsFragment extends Fragment {
 
     /**
      *
-     * @param number
-     * @return Long as String in USD Format
+     * @param number USD as Long
+     * @return USD as String
      */
     public static String longToUSD(Long number) {
-        if (number == 0l) {
+        if (number == 0L) {
             return "No Info";
         }
         NumberFormat n = NumberFormat.getCurrencyInstance(Locale.US);
-        return n.format(number * 100l / 100.0);
+        return n.format(number * 100L / 100.0);
     }
 
     /**
      *
      * @return All the genres from the MovieDetails Object as String
      */
-    public static String getGenresString() {
-        String string = "";
+    private static String getGenresString() {
+        StringBuilder string = new StringBuilder();
         ArrayList<String> movie = MovieDetailsActivity.movieDetails.getGenres();
         for (int i=0; i<movie.size(); i++){
             if (i==0){
-                string = movie.get(i);
+                string.append(movie.get(i));
             }else {
-                string = string + ", " + movie.get(i);
+                string.append(", ").append(movie.get(i));
             }
         }
-        return string;
+        return string.toString();
     }
 
     public static String minToString(int min) {
-        if (min % 60l == 0) {
-            return min / 60l + "h";
-        } else if (min > 60l) {
-            return min / 60l + "h " + min % 60l + "min";
+        if (min % 60L == 0) {
+            return min / 60L + "h";
+        } else if (min > 60L) {
+            return min / 60L + "h " + min % 60L + "min";
         } else {
             return min + "min";
         }
